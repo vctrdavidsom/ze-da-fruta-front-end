@@ -710,4 +710,96 @@ export default function VendedorDashboard() {
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-gray-900">Pedidos Recentes</h3>
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" className="h-9 border-[#FE9A04] text-[#FE9A04] hover:bg-orange-50\">
+                <Button variant="outline" size="sm" className="h-9 border-[#FE9A04] text-[#FE9A04] hover:bg-orange-50">
+                  <Search className="w-4 h-4 mr-2" />
+                  Buscar
+                </Button>
+                <Button className="bg-[#FE9A04] hover:bg-[#E8890B]">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Adicionar Pedido
+                </Button>
+              </div>
+            </div>
+
+            {/* Tabela de Pedidos */}
+            <div className="bg-white rounded-lg shadow-sm">
+              <div className="grid grid-cols-4 gap-4 p-4 border-b">
+                <div className="text-sm font-medium text-gray-500">Produto</div>
+                <div className="text-sm font-medium text-gray-500">Quantidade</div>
+                <div className="text-sm font-medium text-gray-500">Valor</div>
+                <div className="text-sm font-medium text-gray-500">Status</div>
+              </div>
+              {recentOrders.map((order) => (
+                <div
+                  key={order.id}
+                  className="grid grid-cols-4 gap-4 p-4 hover:bg-orange-50 transition-colors"
+                >
+                  <div className="text-sm text-gray-900">{order.product}</div>
+                  <div className="text-sm text-gray-900">{order.quantity}</div>
+                  <div className="text-sm text-gray-900">R$ {order.value.toFixed(2)}</div>
+                  <div className="text-sm">{getStatusBadge(order.status)}</div>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+
+          {/* Tab de Desempenho */}
+          <TabsContent value="desempenho" className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Desempenho de Vendas</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card className="border-none shadow-md">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <p className="text-sm text-gray-500">Total de Vendas (R$)</p>
+                        <p className="text-2xl font-bold text-gray-900">
+                          {totalValue.toFixed(2)}
+                        </p>
+                      </div>
+                      <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center">
+                        <DollarSign className="w-5 h-5 text-green-500" />
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {salesData.length} vendas este mês
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-none shadow-md">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <p className="text-sm text-gray-500">Total de Produtos Vendidos</p>
+                        <p className="text-2xl font-bold text-gray-900">
+                          {totalProducts}
+                        </p>
+                      </div>
+                      <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
+                        <Package className="w-5 h-5 text-blue-500" />
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {salesData.length} produtos vendidos este mês
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Gráfico de Vendas</h3>
+              {/* Aqui você pode integrar um gráfico real usando uma biblioteca como Chart.js ou Recharts */}
+              <div className="bg-white rounded-lg shadow-sm p-4">
+                <p className="text-center text-gray-500 text-sm">
+                  Gráfico de vendas ainda não implementado. Esta é uma demonstração de layout.
+                </p>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </DashboardLayout>
+  )
+}
